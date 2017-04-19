@@ -1,1 +1,35 @@
+@media only screen and (min-width: 600px) {
+  /*Two Col Tablet/small monitor styling*/
+  .wrapper {
+    background: linear-gradient(#062E67 , #000047);
+  }
+  .main-header {
+    background-color: #ffe242;
+    padding: 10px 0 10px 0;
+    border-bottom: solid 3px black;
+  }
+  .banner {
+    background : linear-gradient(#ffbf00 , #ffe242);
+    padding: 5px 0 5px 0;
+  }
 
+  a {
+    color: #062E67;
+  }
+  footer {
+    padding: 10px 0 10px 0;
+    background: lightgrey;
+  }
+
+  p {
+    padding: 7.5px;
+    margin: 0;
+  }
+
+  @media only screen and (min-width: 900px) {
+    /*Medium and large monitor styling*/
+    body {
+      background-color: black;
+    }
+  }
+}
