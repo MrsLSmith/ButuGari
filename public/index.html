@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Butu Gari</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/responsive.css">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Weather PWA">
+	<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#2F3BA2">
+</head>
+
+<body onLoad="initGeolocation();">
+	<div class="wrapper">
+	  <header class="main-header clearfix">
+	    <h1 class="main-title"><a href="#">Butu Gari</a></h1>
+	  </header>
+
+	  <div class="banner">
+	    <h1 class="headline">Butu Gari Banner</h1>
+	    <h3 class="tagline">Butu Gari Tagline</h3>
+	  </div><!--/.banner-->
+
+	  <div class="container clearfix">
+	    <div class="primary">
+	      <h2>Map</h2>
+		  <p>This div can be used for the main GPS map view.</p>
+			<FORM NAME="rd" METHOD="POST" ACTION="index.html">
+				<label>Longitude</label>
+     			<INPUT TYPE="text" NAME="long" ID="long" VALUE="">
+				<label>Latitude</label>
+     			<INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
+			</FORM>
+			<iframe id="map" width="500" height="300"></iframe>
+			<p id="linkP"></p>
+		</div><!--/.primary-->
+
+	    <div class="secondary">
+	      <h2>Connections</h2>
+        <p>This column can be used for other user's emails and text of location or something. I'm thinking it should be below the map view?</p>
+	    </div><!--/.secondary-->
+		</div><!--/.container-->
+	</div><!-- /.wrapper-->
+
+  <footer class="main-footer">
+		<h3>Butu Gari Footer</h3>
+  </footer>
+
+	<script src="js/geolocation.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
+	<script src="js/firebase.js"></script>
+
+</body>
+</html>
