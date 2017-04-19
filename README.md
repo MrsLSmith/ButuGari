@@ -6,5 +6,5 @@ Link:
 https://butu-gari-1492447611966.firebaseapp.com/
 
 Current API's used:
-Google Geolocation
-Google Maps
++Google Geolocation
++Google Maps
