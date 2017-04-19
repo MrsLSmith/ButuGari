@@ -3,18 +3,13 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Butu Gari</title>
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/responsive.css">
-
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="Weather PWA">
-	<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
-	<meta name="msapplication-TileColor" content="#2F3BA2">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 
-<body onLoad="initGeolocation();">
+<body>
 	<div class="wrapper">
 	  <header class="main-header clearfix">
 	    <h1 class="main-title"><a href="#">Butu Gari</a></h1>
@@ -27,16 +22,14 @@
 
 	  <div class="container clearfix">
 	    <div class="primary">
-	      <h2>Map</h2>
-		  <p>This div can be used for the main GPS map view.</p>
-			<FORM NAME="rd" METHOD="POST" ACTION="index.html">
-				<label>Longitude</label>
-     			<INPUT TYPE="text" NAME="long" ID="long" VALUE="">
-				<label>Latitude</label>
-     			<INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
-			</FORM>
-			<iframe id="map"></iframe>
-			<p id="linkP"></p>
+	      <button id="signIn" onclick="googleSignin()">Sign In</button><button id="signOut" onclick="googleSignout()"" style="display:none">Sign Out</button>
+	      <button onclick="initGeolocation()" style="display:block;">Get Geolocation</button>
+		  <label>Longitude</label>
+     	  <INPUT TYPE="text" NAME="long" ID="long" VALUE="">
+		  <label>Latitude</label>
+     	  <INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
+		  <iframe id="map" style="display:none"></iframe>
+		  <p id="linkP"></p>
 		</div><!--/.primary-->
 
 	    <div class="secondary">
@@ -50,8 +43,8 @@
 		<h3>Butu Gari Footer</h3>
   </footer>
 
-	<script src="js/main.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 </html>
