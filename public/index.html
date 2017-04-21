@@ -22,8 +22,10 @@
 
 	  <div class="container clearfix">
 	    <div class="primary">
-	      <button id="signIn" onclick="googleSignin()">Sign In</button><button id="signOut" onclick="googleSignout()"" style="display:none">Sign Out</button>
-	      <button onclick="initGeolocation()" style="display:block;">Get Geolocation</button>
+				<div id="signinButtons">
+		      <button id="signIn" onclick="googleSignin()">Sign In</button><button id="signOut" onclick="googleSignout()" style="display:none">Sign Out</button>
+				</div>
+				<button onclick="initGeolocation()" style="display:block;">Get Geolocation</button>
 		  <label>Longitude</label>
      	  <INPUT TYPE="text" NAME="long" ID="long" VALUE="">
 		  <label>Latitude</label>
