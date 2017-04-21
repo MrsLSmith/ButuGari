@@ -8,7 +8,6 @@ var config = {
   messagingSenderId: "359268417162"
 };
 firebase.initializeApp(config);
-var rootRef = firebase.database().ref();
 
 
 //Geolocation
@@ -25,13 +24,21 @@ function success(position) {
     let linkP = document.getElementById('linkP');
     let long = document.getElementById('long').value = position.coords.longitude;
     let lat = document.getElementById('lat').value = position.coords.latitude;
-
     let link = document.createElement('a');
 	  let geoKey = "AIzaSyDXgDWfraFVxGVCyiw8TMeY_SWsS-w14tM";
 	  let mapKey = "AIzaSyCZgD0Sfe4nwX4ClU2nUkTBb6pgiezVyPc";
 	  let mapLink = "https://www.google.com/maps/embed/v1/place?q="+position.coords.latitude+","+position.coords.longitude+"&key="+mapKey;
 	  let jsonLink = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key="+geoKey;
 
+    var chrisabajianRef = firebase.database().ref("users/Chris Abajian");
+    chrisabajianRef.update({
+          long: long,
+          lat: lat
+    });
+
+    console.log("Coordinates: ");
+    console.log("Longitude: " + long);
+    console.log("Latitude: " + lat);
 	  document.getElementById('map').src = mapLink;
     document.getElementById('map').style.display = "block";
 	  link.setAttribute('href',jsonLink);
@@ -48,8 +55,16 @@ var provider = new firebase.auth.GoogleAuthProvider();
 function googleSignin() {
    firebase.auth()
    .signInWithPopup(provider).then(function(result) {
+      var user = result.user;
+      var name = user.displayName;
+      var email = user.email;
+
+      console.log(name + " logged in as " + email);
+
       document.getElementById('signIn').style.display = "none";
-      document.getElementById('signOut').style.display = "block";
+      document.getElementById('signOut').style.display = "inline-block";
+
+      signedIn(name, email);
    }).catch(function(error) {
       console.log(error.code)
       console.log(error.message)
@@ -62,8 +77,25 @@ function googleSignout() {
       document.getElementById('signOut').style.display = "none";
       document.getElementById('signIn').style.display = "block";
    }, function(error) {
-      console.log('Signout Failed')  
+      console.log('Signout Failed')
    });
+}
+function signedIn(name, email){
+  let currentUser = document.createElement('p');
+  currentUser.innerHTML = "(Signed in as " + email + ")"
+  currentUser.style.fontSize = "10px";
+  currentUser.style.display = "inline-block";
+  let container = document.getElementById('signinButtons');
+
+  container.appendChild(currentUser);
+
+  usersRef.set({
+     [name]: {
+        email: email,
+     }
+  });
 }
 
 
+// Write to DB
+var usersRef = firebase.database().ref("users/");
