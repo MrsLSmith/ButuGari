@@ -1,52 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Butu Gari</title>
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/responsive.css">
-	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butu Gari</title>
+    <link rel="stylesheet" type="text/css" href="styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 
 <body>
-	<div class="wrapper">
-	  <header class="main-header clearfix">
-	    <h1 class="main-title"><a href="#">Butu Gari</a></h1>
-	  </header>
+    <div class="wrapper">      
+        <header class="main-header clearfix">
+            <h1 class="main-title"><a href="#">Butu Gari</a></h1>
+        </header>
 
-	  <div class="banner">
-	    <h1 class="headline">Butu Gari Banner</h1>
-	    <h3 class="tagline">Butu Gari Tagline</h3>
-	  </div><!--/.banner-->
+        <div class="banner">
+            <h1 class="headline">Butu Gari Banner</h1>
+        </div><!--/.banner-->
 
-	  <div class="container clearfix">
-	    <div class="primary">
-				<div id="signinButtons">
-		      <button id="signIn" onclick="googleSignin()">Sign In</button><button id="signOut" onclick="googleSignout()" style="display:none">Sign Out</button>
-				</div>
-				<button onclick="initGeolocation()" style="display:block;">Get Geolocation</button>
-		  <label>Longitude</label>
-     	  <INPUT TYPE="text" NAME="long" ID="long" VALUE="">
-		  <label>Latitude</label>
-     	  <INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
-		  <iframe id="map" style="display:none"></iframe>
-		  <p id="linkP"></p>
-		</div><!--/.primary-->
+        <div id="userProfile" style="clear: both;">
+            <img id="user-pic">
+            <div>
+                <h4 hidden id="user-name"></h4>
+            </div>
+            <div>
+                <h5 hidden id="user-email"></h5>
+            </div>
+        </div><!--/.userProfile-->
 
-	    <div class="secondary">
-	      <h2>Connections</h2>
-        <p>This column can be used for other user's emails and text of location or something. I'm thinking it should be below the map view?</p>
-	    </div><!--/.secondary-->
-		</div><!--/.container-->
-	</div><!-- /.wrapper-->
+        <div class="container clearfix">
+            <div class="primary">
+                <div id="signinButtons">
+                    <button hidden id="signOutButton">Sign-out</button>
+                    <button hidden id="signInButton">Sign-in</button>
+                </div>
+                <button id="geolocationButton" style="display:block;">Get Geolocation</button>
+                <label>Longitude</label>
+                <INPUT TYPE="text" NAME="long" ID="long" VALUE="">
+                <label>Latitude</label>
+                <INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
+                <iframe id="map" style="display:none"></iframe>
+                <p id="JSONParent"></p>
+            </div><!--/.primary-->
 
-  <footer class="main-footer">
-		<h3>Butu Gari Footer</h3>
-  </footer>
+            <div class="secondary">
+                <h2>Connections</h2>
+                <p>This column can be used for other user's emails and text of location or something. I'm thinking it should be below the map view?</p>
+                <button id="connectionsButton" style="display:block;">Get Connections</button>
+            </div><!--/.secondary-->
+        </div><!--/.container-->
+    </div><!-- /.wrapper-->
 
-	<script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
-	<script src="js/main.js"></script>
+    <footer class="main-footer">
+        <h3>Butu Gari Footer</h3>
+    </footer>
 
-</body>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="scripts/main.js"></script>
+
+    </body>
 </html>
