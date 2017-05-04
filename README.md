@@ -10,4 +10,4 @@ Current API's used:
 +Google Maps
 
 
-TODO: Google sign in, display nearby users, check time from each user (user latlong -> database -> google maps api directions) and route.
+TODO: Update index. Need/want ride? Display nearby friends and show map then, not before.
