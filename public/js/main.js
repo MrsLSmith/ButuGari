@@ -103,7 +103,7 @@ ButuGari.prototype.onAuthStateChanged = function(user) {
         photoUrl: this.currentUser.photoURL || '/images/profile_placeholder.png'
       }
     });
-  } 
+  }
 };
 
 var lat, long;
@@ -164,7 +164,21 @@ ButuGari.prototype.getGeolocation = function() {
 };
 
 ButuGari.prototype.getConnections = function() {
-  document.write('test');
+  var usersRef = firebase.database().ref('users/');
+  usersRef.on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      var output = '';
+      for (var property in childData) {
+        if (property == 'name') {
+        output = childData[property];
+  }
+}
+    var connectionsUsers = document.getElementById('connectionsUsers');
+
+      console.log(output);
+    });
+  });
 }
 
 window.onload = function() {
