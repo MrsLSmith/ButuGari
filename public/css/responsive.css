@@ -1,11 +1,18 @@
 @media only screen and (min-width: 600px) {
   /*Two Col Tablet/small monitor styling*/
+  html {
+    position: relative;
+    min-height: 100%;
+    background: linear-gradient(#254169 , #000047);
+  }
+
   body {
     margin: 0;
+    background-color: transparent;
   }
 
   .wrapper {
-    background: linear-gradient(#062E67 , #000047);
+    padding-bottom: 10px;
   }
   .main-header {
     background-color: #ffe242;
@@ -35,8 +42,12 @@
     margin-left: 30px;
   }
   footer {
-    padding: 10px 0 10px 0;
+    position: absolute;
     background: lightgrey;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0 0 0;
   }
 
   p {
