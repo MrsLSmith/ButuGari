@@ -50,6 +50,17 @@
     padding: 10px 0 0 0;
   }
 
+  #map {
+    width: 80px;
+    padding: 0 10% 0 10%;
+  }
+
+  input {
+    display: inline-block;
+    width: 60%;
+    margin: 0 20% 0 20%;
+  }
+
   p {
     padding: 7.5px;
   }
@@ -90,10 +101,12 @@
     border: none;
   }
 
+
+
   @media only screen and (min-width: 900px) {
     /*Medium and large monitor styling*/
     body {
-      background-color: black;
+
 
 
     }
