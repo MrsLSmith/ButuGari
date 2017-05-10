@@ -1,0 +1,114 @@
+@media only screen and (min-width: 600px) {
+  /*Two Col Tablet/small monitor styling*/
+  html {
+    position: relative;
+    min-height: 100%;
+    background: linear-gradient(#254169 , #000047);
+  }
+
+  body {
+    margin: 0;
+    background-color: transparent;
+  }
+
+  .wrapper {
+    padding-bottom: 10px;
+  }
+  .main-header {
+    background-color: #ffe242;
+    padding: 10px 0 10px 0;
+    box-shadow: black 1px 3px 5px;
+    text-align: left;
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+
+  .banner {
+    background : linear-gradient(#ffe242 , #ffbf00);
+    padding: 0;
+    margin-top: 73px;
+  }
+
+  a {
+    color: #ffe242;
+    text-decoration: none;
+    border: none;
+    text-align: left;
+    background: #062E67;
+    padding: 2px 10px 2px 10px;
+    border: solid white 3px;
+    border-radius: 25px;
+    margin-left: 30px;
+  }
+  footer {
+    position: absolute;
+    background: lightgrey;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0 0 0;
+  }
+
+  #map {
+    width: 80px;
+    padding: 0 10% 0 10%;
+  }
+
+  input {
+    display: inline-block;
+    width: 60%;
+    margin: 0 20% 0 20%;
+  }
+
+  p {
+    padding: 7.5px;
+  }
+  h1 {
+    color: #062E67;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  .headline {
+    color: #062E67;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    text-align: left;
+    border-top: solid black 3px;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .tagline {
+    color: #062E67;
+    border: none;
+    border-top: solid #062E67 3px;
+    border-radius: 0;
+    text-align: left;
+    padding: 7.5px;
+    margin: 0;
+  }
+
+  h3 {
+    color: darkgrey;
+    border: none;
+  }
+
+
+
+  @media only screen and (min-width: 900px) {
+    /*Medium and large monitor styling*/
+    body {
+
+
+
+    }
+  }
+}
