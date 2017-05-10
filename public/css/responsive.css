@@ -60,6 +60,12 @@
     width: 60%;
     margin: 0 20% 0 20%;
   }
+  
+  lable {
+    display: inline-block;
+    width: 60%;
+    margin: 0 20%;
+  }
 
   p {
     padding: 7.5px;
