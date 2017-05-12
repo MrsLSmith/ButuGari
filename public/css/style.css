@@ -91,3 +91,8 @@ button {
   display: block;
   margin:auto;
 }
+
+img {
+  width: 100px;
+  border-radius: 25%;
+}
