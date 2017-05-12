@@ -41,6 +41,17 @@
     border-radius: 25px;
     margin-left: 30px;
   }
+
+  #sighOutButton {
+    margin: 0;
+    text-align: center;
+  }
+
+  button {
+    margin: auto;
+    text-align: center;
+  }
+
   footer {
     position: absolute;
     background: lightgrey;
@@ -57,14 +68,21 @@
 
   input {
     display: inline-block;
+    padding: 5px;
     width: 60%;
-    margin: 0 20% 0 20%;
+    margin: 10px 20% 0 20%;
   }
-  
-  lable {
+
+  label:nth-child(odd) {
     display: inline-block;
     width: 60%;
-    margin: 0 20%;
+    margin: 0 25%;
+  }
+
+  label:nth-child(even) {
+    display: inline-block;
+    width: 60%;
+    margin: 0 35%;
   }
 
   p {
@@ -105,6 +123,10 @@
   h3 {
     color: darkgrey;
     border: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
   }
 
 
