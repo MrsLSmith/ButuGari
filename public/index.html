@@ -16,44 +16,58 @@
         </header>
 
         <div class="banner">
-            <h1 class="headline">Butu Gari Banner</h1>
-        </div><!--/.banner-->
-
-        <div id="userProfile" style="clear: both;">
-            <img id="user-pic">
-            <div>
-                <h4 hidden id="user-name"></h4>
-            </div>
-            <div>
-                <h5 hidden id="user-email"></h5>
-            </div>
-        </div><!--/.userProfile-->
-
-        <div class="container clearfix">
-            <div class="primary">
+            <div id="userProfile">
+                <img id="user-pic">
+                <div>
+                    <h4 hidden id="user-name"></h4>
+                </div>
+                <div>
+                    <h5 hidden id="user-email"></h5>
+                </div>
+                <button id="manageProfileButton" hidden >Manage Profile</button>
                 <div id="signinButtons">
                     <button hidden id="signOutButton">Sign-out</button>
                     <button hidden id="signInButton">Sign-in</button>
                 </div>
-                <button id="geolocationButton" style="display:block;">Get Geolocation</button>
-                <label>Longitude</label>
-                <INPUT TYPE="text" NAME="long" ID="long" VALUE="">
-                <label>Latitude</label>
-                <INPUT TYPE="text" NAME="lat" ID="lat" VALUE="">
+            </div><!--/.userProfile-->
+        </div><!--/.banner-->
+
+        <div id="manageProfileContainer" class="modal">
+            <div id="profile-content">
+                <h3 id="profileHeader">My Profile</h3>
+                <span class="close">&times;</span>
+                <button id="myFriendsButton">Friends &#9658;</button>
+                <div id="friends-content" style="display: none">
+                    <button id="addFriendsButton">Add +</button>
+                    <p>Sent Requests:</p>
+                    <ul id="sentRequests"></ul>
+                    <p>Received Requests:</p>
+                    <ul id="receivedRequests"></ul>
+                    <p>Friends:</p>
+                    <ul id="currentFriends"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container clearfix">
+            <div class="primary">
+                <h2>Ride</h2>
+                <button class="geolocationButton">Request</button>
+                <button class="geolocationButton">Broadcast</button>
                 <iframe id="map" style="display:none"></iframe>
                 <p id="JSONParent"></p>
             </div><!--/.primary-->
 
             <div class="secondary">
                 <h2>Connections</h2>
-                <p>This column can be used for other user's emails and text of location or something. I'm thinking it should be below the map view?</p>
                 <button id="connectionsButton" style="display:block;">Get Connections</button>
+                <div id="nearbyFriendsContainer"></div>
             </div><!--/.secondary-->
         </div><!--/.container-->
     </div><!-- /.wrapper-->
 
     <footer class="main-footer">
-        <h3>Butu Gari Footer</h3>
+        <h5>&copy;Butu Gari 2017</h5>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
