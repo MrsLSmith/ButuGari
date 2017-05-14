@@ -4,70 +4,107 @@
 }
 
 a {
-  text-align: center;
   color: #EADE51;
   border-top: solid 3px #EADE51;
   border-bottom: solid 3px #EADE51;
 }
 
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.wrapper {
+  min-height: calc(100vh - 22px - 20px - 40px); /* -footer -main-title -footer:margin; */
+}
+
 .main-title {
-  text-decoration: none;
+  margin: 0;
+  padding: 20px;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 10%;
-  text-decoration: underline;
-}
+.main-header {
+    width: 100%;
+  }
 
-
-h2 p {
-  margin-top: 10%;
-  margin-bottom: 10%;
-}
-
-h3 {
-  text-align: center;
-  border-radius: 10px;
-  border: 3px solid;
-  margin-right: 5%;
-}
-
-.header-cont {
-  position: fixed;
-  width: 100%;
-  top: 0%;
-  color: #EADE51;
-}
-
-.header {
-  height:50px;
-  border:1px solid #CCC;
-  width:960px;
-  margin:0px auto;
+.banner {
+  margin-bottom: 40px;
 }
 
 body {
+  height: 100%;
   margin:10px;
   background-color: #062E67;
   color: #EADE51;
+  text-align: center;
 }
 
-#long, #lat {
-  font-family: 'Poppins', sans-serif;
-  display: block;
-  padding: 5px 10px 0px;
-  border: 1px solid #b7b7b7;
-  border-radius: 3px;
-  color: #062E67;
-  font-weight: 800;
-  text-overflow: clip;
-  background: rgba(252,252,252,1);
-  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
-  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  width: 50%;
-  margin-bottom: 10px;
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    text-align: left;
+}
+.modal button {
+    background-color: #fefefe;
+    border-radius: 5px;
+    border: 2px solid;
+    font-size: 16px;
+    padding: 2px;
+}
+
+.newModalContent {
+    background-color: #fefefe;
+    margin: 30% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%; /* Could be more or less, depending on screen size */
+    color: #062E67;
+}
+
+/* Modal Content/Boxes */
+#profile-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    color: #062E67;
+}
+
+#profileHeader {
+    display: inline-block;
+    width: 90%;
+    margin: 0px 0 10px 0;
+}
+
+#friends-content {
+    background-color: #eee;
+    margin: 2.5% 0 0 20px;
+    padding: 10px;
+    border-left: 3px solid #EADE51;
+}
+
+/* Modal Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -8px;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    cursor: pointer;
 }
 
 #map {
@@ -76,8 +113,13 @@ body {
   border: 0;
 }
 
+#signinButtons {
+  display: inline-block;
+}
+
 footer {
-  text-align: center;
+  height: 22px;
+  margin-top: 40px;
 }
 
 button {
@@ -85,14 +127,29 @@ button {
   background-color: #EADE51;
   border-radius: 10px;
   border: 3px solid;
-  padding: 3px;
   font-size: 18px;
   padding: 7px;
-  display: block;
+  display: inline-block;
   margin:auto;
 }
 
-img {
+#user-pic {
   width: 100px;
   border-radius: 100%;
+}
+
+
+h2 {
+  margin-bottom: 0;
+}
+h4, h5 {
+	margin: 0;
+}
+
+#userProfile {
+	margin:auto;
+}
+
+.secondary ol, .secondary ul{
+  text-align: left;
 }
