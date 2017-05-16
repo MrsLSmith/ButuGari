@@ -19,8 +19,8 @@ firebase.initializeApp(config);
 var rootRef = firebase.database().ref();
 var usersRef = firebase.database().ref('users/');
 var currentUser;
-var name, email, photoURL, uid;
-var lat, long;
+var name, email, photoURL;
+var lat, long, address;
 // DOM Elements
 const userPicDOM = document.getElementById('user-pic');
 const userNameDOM = document.getElementById('user-name');
@@ -54,6 +54,9 @@ function ButuGari() {
   // Triggers when the auth state change for instance when the user signs-in or signs-out.
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) { // User is signed in!
+      document.addEventListener("mousemove", userAction, false);
+      document.addEventListener("click", userAction, false);
+      document.addEventListener("scroll", userAction, false);
       currentUser = user;
       // Get profile pic and user's name from the Firebase user object.
       var profilePicUrl = user.photoURL;
@@ -72,33 +75,40 @@ function ButuGari() {
       // Hide sign-in button.
       signInButton.setAttribute('hidden', 'true');
       // Check if existing user
-      if(usersRef.child(user.uid)) {
-        // Existing user, only update:
-        usersRef.child(user.uid).update({
-          email: user.email,
-          name: user.displayName,
-          photoURL: user.photoURL,
-        });
-      } else {
-        // New user, set:
-        usersRef.set({
-          [user.uid]: {
+      usersRef.child(user.uid).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        ifExistingUser(exists);
+      });
+
+      function ifExistingUser(exists) {
+        if (exists) {
+          // Existing user, only update:
+          usersRef.child(user.uid).update({
             email: user.email,
             name: user.displayName,
             photoURL: user.photoURL,
-            friends: {
-              sentRequests: {
-                sent: "placeholder"
-              },
-              receivedRequests: {
-                received: "placeholder"
-              },
-              acceptedRequests: {
-                placeholder: "placeholder"
+          });
+        } else {
+          // New user, set:
+          usersRef.update({
+            [user.uid]: {
+              email: user.email,
+              name: user.displayName,
+              photoURL: user.photoURL,
+              friends: {
+                sentRequests: {
+                  sent: "placeholder"
+                },
+                receivedRequests: {
+                  received: "placeholder"
+                },
+                acceptedRequests: {
+                  placeholder: "placeholder"
+                }
               }
             }
-          }
-        });
+          });
+        }
       }
     } else { // User is signed out!
       // Hide user's profile and sign-out button.
@@ -112,11 +122,12 @@ function ButuGari() {
       // Remove map iframe
       map.style.display = "none";
       // Remove user's lat/long
-      var usersRefCoordinates = usersRef.child(currentUser.uid);
-      usersRefCoordinates.update({
-        coordinates: {
+      var usersRefLocation = usersRef.child(currentUser.uid);
+      usersRefLocation.update({
+        location: {
           lat: "",
-          long: ""
+          long: "",
+          address: ""
         }
       });
     }
@@ -138,7 +149,6 @@ function manageFriends() {
   var friendsContent = document.getElementById('friends-content');
   var friendsButton = document.getElementById('myFriendsButton');
   var addFriendsButton = document.getElementById('addFriendsButton');
-  var acceptRequestButton = document.getElementById('acceptRequestButton');
 
   // Handle received DOM elements
   var receivedRequestsDOM = document.getElementById('receivedRequests');
@@ -153,8 +163,9 @@ function manageFriends() {
 
         var prevRequestsAccept = document.createElement('button');
         prevRequestsAccept.className = 'accept';
-        prevRequestsAccept.innerHTML = "Accept";
+        prevRequestsAccept.innerHTML = "&#10004;";
         prevRequestsLi.appendChild(prevRequestsAccept);
+
         prevRequestsAccept.onclick = function() {
           prevRequestsLi.remove();
           usersRef.child(request.key).child('friends').child('sentRequests').child(currentUser.uid).remove();
@@ -165,6 +176,13 @@ function manageFriends() {
           usersRef.child(request.key).child('friends').child('acceptedRequests').update({
             [currentUser.uid]: currentUser.email
           });
+        }
+
+        for (var i = 0; i < receivedRequestsDOM.childNodes.length; i++) {
+          if (receivedRequestsDOM.childNodes[i].innerHTML == requests.val()) {
+            receivedRequestsDOM.childNodes[i].remove(); // Remove all identical children
+            receivedRequestsDOM.appendChild(prevRequestsLi); // Append only one child
+          }
         }
       }
     });
@@ -179,19 +197,56 @@ function manageFriends() {
         var prevRequestsLi = document.createElement('li');
         prevRequestsLi.innerHTML = requests.val();
         sentRequestsDOM.appendChild(prevRequestsLi);
+
+        var removeRequest = document.createElement('button');
+        removeRequest.className = 'remove';
+        removeRequest.innerHTML = '&#10006;';
+        prevRequestsLi.appendChild(removeRequest);
+
+        removeRequest.onclick = function() {
+          prevRequestsLi.remove();
+          usersRef.child(requests.key).child('friends').child('receivedRequests').child(currentUser.uid).remove();
+          usersRef.child(currentUser.uid).child('friends').child('sentRequests').child(requests.key).remove();
+        }
+
+        for (var i = 0; i < sentRequestsDOM.childNodes.length; i++) {
+          if (sentRequestsDOM.childNodes[i].innerHTML == requests.val()) {
+            sentRequestsDOM.childNodes[i].remove(); // Remove all identical children
+            sentRequestsDOM.appendChild(prevRequestsLi); // Append only one child
+          }
+        }
       }
     });
   });
-  // Handle currentFriends DOM elements
-  var currentFriendsDOM = document.getElementById('currentFriends');
+  // Handle accepted DOM elements
+  var acceptedRequestsDOM = document.getElementById('acceptedRequests');
   var acceptedRequests = usersRef.child(currentUser.uid).child('friends').child('acceptedRequests');
   acceptedRequests.on('value', function(snap) {
     var acceptedLength = snap.numChildren();
     snap.forEach(function(requests) {
       if (requests.val() !== 'placeholder') {
+
         var prevAcceptedLi = document.createElement('li');
         prevAcceptedLi.innerHTML = requests.val();
-        currentFriendsDOM.appendChild(prevAcceptedLi);
+        acceptedRequestsDOM.appendChild(prevAcceptedLi);
+
+        for (var i = 0; i < acceptedRequestsDOM.childNodes.length; i++) {
+          if (acceptedRequestsDOM.childNodes[i].innerHTML == requests.val()) {
+            acceptedRequestsDOM.childNodes[i].remove(); // Remove all identical children
+            acceptedRequestsDOM.appendChild(prevAcceptedLi); // Append only one child
+          }
+        }
+
+        var removeFriend = document.createElement('button');
+        removeFriend.className = 'remove';
+        removeFriend.innerHTML = '&#10006;';
+        prevAcceptedLi.appendChild(removeFriend);
+
+        removeFriend.onclick = function() {
+          prevAcceptedLi.remove();
+          usersRef.child(requests.key).child('friends').child('acceptedRequests').child(currentUser.uid).remove();
+          usersRef.child(currentUser.uid).child('friends').child('acceptedRequests').child(requests.key).remove();
+        }
       }
     });
   });
@@ -220,6 +275,7 @@ function manageFriends() {
     sendFriendRequest.onclick = function() {
       newModal.remove();
 
+      var emailExists;
       var requestEmail = addFriendsInput.value;
       usersRef
         .orderByChild('email')
@@ -227,24 +283,40 @@ function manageFriends() {
         .endAt(requestEmail)
         .once('value', function(snap){
             snap.forEach(function(users) {
-              // users.val(); // Returns entire user object
-              usersRef.child(currentUser.uid).child('friends').child('sentRequests').update({
-                [users.key]: users.val().email,
+              emailExists = true;
+
+              var friendExists;
+              usersRef.child(currentUser.uid).child('friends').child('acceptedRequests').child(users.key).once('value', function(snapshot) {
+                friendExists = (snapshot.val() !== null);
               });
 
-              usersRef.child(users.key).child('friends').child('receivedRequests').update({
-                [currentUser.uid]: currentUser.email,
+              var requestExists;
+              usersRef.child(currentUser.uid).child('friends').child('sentRequests').child(users.key).once('value', function(snapshot) {
+                requestExists = (snapshot.val() !== null);
               });
+
+              if (!requestExists && !friendExists) {
+                usersRef.child(currentUser.uid).child('friends').child('sentRequests').update({
+                  [users.key]: users.val().email,
+                });
+                usersRef.child(users.key).child('friends').child('receivedRequests').update({
+                  [currentUser.uid]: currentUser.email,
+                });
+              } else if (requestExists) {
+                alert("You've already sent this user a request!");
+              } else if (friendExists) {
+                alert("You're already friends with this user!");
+              } else {
+                alert("An error occured, please try again.");
+              }
             });
       });
 
-      var newRequest = document.createElement('li');
-      if (requestEmail !== "") { // TODO: check if email is valid
-        newRequest.innerHTML = requestEmail;
-        sentRequestsDOM.appendChild(newRequest);
-      } else {
-        alert('Please enter a valid email');
-      }
+      setTimeout(function() {
+        if (emailExists !== true) {
+          alert('There is no existing user with that email.');
+        }
+      }, 500);
     }
 
     newModal.appendChild(newModalContent);
@@ -254,17 +326,20 @@ function manageFriends() {
     newModalContent.appendChild(sendFriendRequest);
     friendsContent.appendChild(newModal);
     newModal.style.display = 'block';
-  }
+  };
 
-  if (friendsContent.style.display == 'none') {
+  // Exit events
+  if (friendsContent.style.display == 'none') { // Friends tab open
     friendsContent.style.display = 'block';
     friendsButton.style.backgroundColor = '#EADE51';
     friendsButton.innerHTML = "Friends &#9660;";
-  } else {
+  } else { // Friends tab closed
     friendsContent.style.display = 'none';
     friendsButton.style.backgroundColor = '#fefefe';
     friendsButton.innerHTML = "Friends &#9658;";
     sentRequestsDOM.childNodes.remove();
+    receivedRequestsDOM.childNodes.remove();
+    acceptedRequestsDOM.childNodes.remove();
   }
   window.onclick = function(e) {
     if (event.target == modal) {
@@ -273,6 +348,8 @@ function manageFriends() {
       friendsButton.style.backgroundColor = '#fefefe';
       friendsButton.innerHTML = "Friends &#9658;";
       sentRequestsDOM.childNodes.remove();
+      receivedRequestsDOM.childNodes.remove();
+      acceptedRequestsDOM.childNodes.remove();
     }
   }
 }
@@ -317,22 +394,23 @@ function getGeolocation() {
     let mapKey = "AIzaSyCZgD0Sfe4nwX4ClU2nUkTBb6pgiezVyPc";
     let mapLink = "https://www.google.com/maps/embed/v1/place?q="+lat+","+long+"&key="+mapKey;
     let jsonLink = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key="+geoKey;
+    // Convert link to an address
+    let jsonLinkObject = JSON.parse(getJSON(jsonLink));
+    address = jsonLinkObject.results[0].formatted_address;
+
     // Update map and json link
     map.src = mapLink;
     map.style.display = "block";
     // Create JSON link element
     let JSONParent = document.getElementById('JSONParent');
-    let newLink = document.createElement('a');
-    newLink.setAttribute('href',jsonLink);
-    newLink.innerHTML = "View location JSON";
-    newLink.id = "newjsonLink";
-    JSONParent.appendChild(newLink);
+    JSONParent.innerHTML = address;
     // Add a new data set entry to the Firebase Database.
-    var usersRefCoordinates = usersRef.child(currentUser.uid);
-    usersRefCoordinates.update({
-      coordinates: {
+    var usersRefLocation = usersRef.child(currentUser.uid);
+    usersRefLocation.update({
+      location: {
         lat: lat,
-        long: long
+        long: long,
+        address: address
       }
     });
   }
@@ -346,26 +424,20 @@ function getConnections() {
   myFriends.on('value', function(snap) {
     snap.forEach(function(friend) {
       if (friend.val() !== 'placeholder') {
-        usersRef.child(friend.key).child('coordinates').once('value').then(function(snapshot){
-          if (snapshot.val().lat !== "") {
+        usersRef.child(friend.key).child('location').once('value').then(function(snapshot){
+          if (snapshot.val().address !== "") {
             var nearbyFriendsContainer = document.getElementById('nearbyFriendsContainer');
             var nearbyFriend = document.createElement('ol');
             var nearbyFriendLi = document.createElement('li')
-            nearbyFriendLi.innerHTML = friend.val() + ' (lat, long)';
+            nearbyFriendLi.innerHTML = friend.val();
             nearbyFriend.appendChild(nearbyFriendLi);
             nearbyFriendsContainer.appendChild(nearbyFriend);
 
-            var nearbyFriendLat = document.createElement('ul');
-            var nearbyFriendLatLi = document.createElement('li');
-            nearbyFriendLatLi.innerHTML = snapshot.val().lat;
-            nearbyFriendLat.appendChild(nearbyFriendLatLi);
-            nearbyFriend.appendChild(nearbyFriendLat);
-
-            var nearbyFriendLong = document.createElement('ul');
-            var nearbyFriendLongLi = document.createElement('li');
-            nearbyFriendLongLi.innerHTML = snapshot.val().long;
-            nearbyFriendLong.appendChild(nearbyFriendLongLi);
-            nearbyFriend.appendChild(nearbyFriendLong);
+            var nearbyFriendAddress = document.createElement('ul');
+            var nearbyFriendAddressLi = document.createElement('li');
+            nearbyFriendAddressLi.innerHTML = snapshot.val().address;
+            nearbyFriendAddress.appendChild(nearbyFriendAddressLi);
+            nearbyFriend.appendChild(nearbyFriendAddress);
           }
         });
       }
@@ -374,6 +446,39 @@ function getConnections() {
 }
 
 window.onload = ButuGari;
+
+// Get json from link
+function getJSON(url) {
+    var resp ;
+    var xmlHttp ;
+
+    resp  = '' ;
+    xmlHttp = new XMLHttpRequest();
+
+    if(xmlHttp != null) {
+        xmlHttp.open( "GET", url, false );
+        xmlHttp.send( null );
+        resp = xmlHttp.responseText;
+    }
+    return resp ;
+}
+
+// Inactivity timeout
+function debounce(callback, timeout, _this) {
+    var timer;
+    return function(e) {
+        var _that = this;
+        if (timer)
+            clearTimeout(timer);
+        timer = setTimeout(function() { 
+            callback.call(_this || _that, e);
+        }, timeout);
+    }
+}
+var userAction = debounce(function(e) {
+    signOut();
+    console.log('Inactivity for 5 minutes, automatically signed out.')
+}, 5*60*1000); // 5 minutes
 
 // Helpful DOM remove() function 
 Element.prototype.remove = function() {
