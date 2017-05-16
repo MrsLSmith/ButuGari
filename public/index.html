@@ -10,11 +10,13 @@
 </head>
 
 <body>
-    <div class="wrapper">      
-        <header class="main-header clearfix">
-            <h1 class="main-title"><a href="#">Butu Gari</a></h1>
-        </header>
 
+    <header class="main-header clearfix">
+        <img class="main-logo" src="img/ButuGariLogo.png">
+        <h1 class="main-title"><a href="#">Butu Gari</a></h1>
+    </header>
+
+    <div class="wrapper">      
         <div class="banner">
             <div id="userProfile">
                 <img id="user-pic">
@@ -44,7 +46,7 @@
                     <p>Received Requests:</p>
                     <ul id="receivedRequests"></ul>
                     <p>Friends:</p>
-                    <ul id="currentFriends"></ul>
+                    <ul id="acceptedRequests"></ul>
                 </div>
             </div>
         </div>
@@ -66,12 +68,13 @@
         </div><!--/.container-->
     </div><!-- /.wrapper-->
 
-    <footer class="main-footer">
-        <h5>&copy;Butu Gari 2017</h5>
-    </footer>
-
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="js/main.js"></script>
 
     </body>
+
+    <footer class="main-footer">
+        <h5>&copy;Butu Gari 2017</h5>
+    </footer>
+    
 </html>
