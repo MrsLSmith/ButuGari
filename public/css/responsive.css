@@ -6,7 +6,14 @@
 
   .wrapper {
     background: linear-gradient(#062E67 , #000047);
+    margin-top:114px;
   }
+
+  #userProfile {
+    padding: 5px 0;
+
+  }
+
   .main-header {
     background-color: #ffe242;
     padding: 10px 0 10px 0;
@@ -34,9 +41,16 @@
     border-radius: 25px;
     margin-left: 30px;
   }
-  footer {
-    padding: 10px 0 10px 0;
+
+  #map {
+    width: 70%;
+    margin: 5% 15%;
+  }
+
+  .main-footer {
+    padding: 35px 0 35px 0;
     background: lightgrey;
+
   }
 
   p {

@@ -15,9 +15,12 @@ a {
   clear: both;
 }
 
+
+
 .wrapper {
   min-height: calc(100vh - 22px - 93px - 40px - 10px); /* -footer -main-title -footer:margin -body:margin; */
   margin:10px;
+  margin-top: 93px;
 }
 
 .main-logo {
@@ -36,6 +39,8 @@ a {
   background-color: #EADE51;
   width: 100%;
   box-shadow: #000 0 0px 10px;
+  position: fixed;
+  top: 0;
 }
 
 .banner {
