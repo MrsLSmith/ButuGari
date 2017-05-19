@@ -4,9 +4,9 @@
 }
 
 a {
-  color: #EADE51;
-  border-top: solid 3px #EADE51;
-  border-bottom: solid 3px #EADE51;
+  color: #062E67;
+  border-top: solid 3px #062E67;
+  border-bottom: solid 3px #062E67;
 }
 
 .clearfix:after {
@@ -16,17 +16,27 @@ a {
 }
 
 .wrapper {
-  min-height: calc(100vh - 22px - 20px - 40px); /* -footer -main-title -footer:margin; */
+  min-height: calc(100vh - 22px - 93px - 40px - 10px); /* -footer -main-title -footer:margin -body:margin; */
+  margin:10px;
+}
+
+.main-logo {
+  height: 93px;
+  vertical-align: bottom;
 }
 
 .main-title {
+  color: #062E67;
   margin: 0;
   padding: 20px;
+  display: inline-block;
 }
 
 .main-header {
-    width: 100%;
-  }
+  background-color: #EADE51;
+  width: 100%;
+  box-shadow: #000 0 0px 10px;
+}
 
 .banner {
   margin-bottom: 40px;
@@ -34,7 +44,6 @@ a {
 
 body {
   height: 100%;
-  margin:10px;
   background-color: #062E67;
   color: #EADE51;
   text-align: center;
@@ -111,6 +120,7 @@ body {
   width: 100%;
   height: 75vw;
   border: 0;
+  border-radius: 5px;
 }
 
 #signinButtons {
@@ -120,6 +130,9 @@ body {
 footer {
   height: 22px;
   margin-top: 40px;
+  background-color: #EADE51;
+  color: #062E67;
+  box-shadow: #000 0 0px 5px;
 }
 
 button {
@@ -152,4 +165,8 @@ h4, h5 {
 
 .secondary ol, .secondary ul{
   text-align: left;
+}
+
+.accept, .remove {
+  float: right;
 }
