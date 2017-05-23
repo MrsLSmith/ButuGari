@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butu Gari</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="main-header clearfix">
+      <h1 class="main-title"><a href="#">Butu Gari</a></h1>
+      <img class="main-logo" src="img/ButuGariLogo.png">
+    </header>
+
+    <div class="wrapper">
+        <div class="banner">
+            <div id="userProfile">
+                <img id="user-pic">
+                <div>
+                    <h4 hidden id="user-name"></h4>
+                </div>
+                <div>
+                    <h5 hidden id="user-email"></h5>
+                </div>
+                <button id="manageProfileButton" hidden >Manage Profile</button>
+                <div id="signinButtons">
+                    <button hidden id="signOutButton">Sign-out</button>
+                    <button hidden id="signInButton">Sign-in</button>
+                </div>
+            </div><!--/.userProfile-->
+        </div><!--/.banner-->
+
+        <div id="manageProfileContainer" class="modal">
+            <div id="profile-content">
+                <h3 id="profileHeader">My Profile</h3>
+                <span class="close">&times;</span>
+                <button id="myFriendsButton">Friends &#9658;</button>
+                <div id="friends-content" style="display: none">
+                    <button id="addFriendsButton">Add +</button>
+                    <p>Sent Requests:</p>
+                    <ul id="sentRequests"></ul>
+                    <p>Received Requests:</p>
+                    <ul id="receivedRequests"></ul>
+                    <p>Friends:</p>
+                    <ul id="acceptedRequests"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container clearfix">
+            <div class="primary">
+                <h2>Ride</h2>
+                <button class="geolocationButton">Request</button>
+                <button class="geolocationButton">Broadcast</button>
+                <iframe id="map" style="display:none"></iframe>
+                <p id="JSONParent"></p>
+            </div><!--/.primary-->
+
+            <div class="secondary">
+                <h2>Connections</h2>
+                <button id="connectionsButton" style="display:block;">Get Connections</button>
+                <div id="nearbyFriendsContainer"></div>
+            </div><!--/.secondary-->
+        </div><!--/.container-->
+    </div><!-- /.wrapper-->
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="js/main.js"></script>
+
+    </body>
+
+    <footer class="main-footer">
+        <h5>&copy;Butu Gari 2017</h5>
+    </footer>
+
+</html>
