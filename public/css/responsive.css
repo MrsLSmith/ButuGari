@@ -1,0 +1,95 @@
+@media only screen and (min-width: 600px) {
+  /*Two Col Tablet/small monitor styling*/
+  body {
+    margin: 0;
+  }
+
+  .wrapper {
+    background: linear-gradient(#062E67 , #000047);
+    margin: 0;
+    margin-top:114px;
+  }
+
+  #userProfile {
+    padding: 5px 0;
+
+  }
+
+  .main-header {
+    background-color: #ffe242;
+    padding: 10px 0 10px 0;
+    box-shadow: black 1px 3px 5px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+
+  .banner {
+    background :transparent;
+    padding: 0;
+    margin-top: 73px;
+  }
+
+  a {
+    color: #ffe242;
+    text-decoration: none;
+    border: none;
+    text-align: left;
+    background: #062E67;
+    padding: 2px 10px 2px 10px;
+    border: solid white 3px;
+    border-radius: 25px;
+    margin-left: 30px;
+  }
+
+  #map {
+    width: 70%;
+    margin: 5% 15%;
+  }
+
+  .main-footer {
+    margin: 0;
+    padding: 35px 0 35px 0;
+    background: lightgrey;
+
+  }
+
+  p {
+    padding: 7.5px;
+  }
+  h1 {
+    color: #062E67;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  h3 {
+    color: darkgrey;
+    border: none;
+  }
+
+  @media only screen and (min-width: 900px) {
+    /*Medium and large monitor styling*/
+    body {
+      background-color: black;
+    }
+    .primary {
+      display: inline;
+    }
+    .secondary {
+      display: inline;
+    }
+    #map {
+      margin: 5% 5% 5% 35%;
+      width: 60%;
+    }
+  }
+}
