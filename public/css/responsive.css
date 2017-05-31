@@ -2,12 +2,12 @@
   /*Two Col Tablet/small monitor styling*/
   body {
     margin: 0;
+    background: linear-gradient(#062E67 , #000047);
   }
 
   .wrapper {
-    background: linear-gradient(#062E67 , #000047);
-    margin: 0;
-    margin-top:114px;
+    margin-top:113px;
+    min-height: calc(100vh - 52px - 103px - 40px - 10px); /* -footer -main-title -footer:margin -body:margin; */
   }
 
   #userProfile {
@@ -19,14 +19,13 @@
     background-color: #ffe242;
     padding: 10px 0 10px 0;
     box-shadow: black 1px 3px 5px;
-    text-align: center;
+    text-align: left;
     position: fixed;
     width: 100%;
     top: 0;
   }
 
   .banner {
-    background :transparent;
     padding: 0;
     margin-top: 73px;
   }
@@ -49,8 +48,7 @@
   }
 
   .main-footer {
-    margin: 0;
-    padding: 35px 0 35px 0;
+    padding: 15px 0 15px 0;
     background: lightgrey;
 
   }
@@ -78,18 +76,5 @@
 
   @media only screen and (min-width: 900px) {
     /*Medium and large monitor styling*/
-    body {
-      background-color: black;
-    }
-    .primary {
-      display: inline;
-    }
-    .secondary {
-      display: inline;
-    }
-    #map {
-      margin: 5% 5% 5% 35%;
-      width: 60%;
-    }
   }
 }

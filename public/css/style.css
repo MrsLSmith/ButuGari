@@ -44,7 +44,9 @@ a {
 }
 
 .banner {
+  clear: both;
   margin-bottom: 40px;
+  margin-top: 103px;
 }
 
 body {
@@ -134,7 +136,7 @@ body {
 
 footer {
   height: 22px;
-  margin-top: 50px;
+  margin-top: 40px;
   background-color: #EADE51;
   color: #062E67;
   box-shadow: #000 0 0px 5px;
@@ -174,4 +176,21 @@ h4, h5 {
 
 .accept, .remove {
   float: right;
+}
+
+#getDirectionsButton {
+  display: none;
+  text-align: center;
+  position: relative;
+  float: right;
+  right: 45px;
+  bottom: 70px;
+  height: 40px;
+  width: 40px;
+}
+
+#getDirections {
+  border: none;
+  margin-left: -2px;
+  margin-top: -1px;
 }
