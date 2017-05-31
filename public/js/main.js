@@ -121,6 +121,10 @@ function ButuGari() {
       signInButton.removeAttribute('hidden');
       // Remove map iframe
       map.style.display = "none";
+      // Remove address
+      document.getElementById('JSONParent').style.display = 'none';
+      // Remove friend connections
+      document.getElementById('nearbyFriendsContainer').style.display = 'none';
       // Remove user's lat/long
       var usersRefLocation = usersRef.child(currentUser.uid);
       usersRefLocation.update({
@@ -142,6 +146,7 @@ function signIn() {
 function signOut() {
   // Sign out of Firebase.
   firebase.auth().signOut();
+  location.reload();
 }
 
 function manageFriends() {
@@ -404,6 +409,7 @@ function getGeolocation() {
     // Create JSON link element
     let JSONParent = document.getElementById('JSONParent');
     JSONParent.innerHTML = address;
+    JSONParent.style.display = 'block';
     // Add a new data set entry to the Firebase Database.
     var usersRefLocation = usersRef.child(currentUser.uid);
     usersRefLocation.update({
@@ -427,6 +433,7 @@ function getConnections() {
         usersRef.child(friend.key).child('location').once('value').then(function(snapshot){
           if (snapshot.val().address !== "") {
             var nearbyFriendsContainer = document.getElementById('nearbyFriendsContainer');
+            nearbyFriendsContainer.style.display = 'block';
             var nearbyFriend = document.createElement('ol');
             var nearbyFriendLi = document.createElement('li')
             nearbyFriendLi.innerHTML = friend.val();
@@ -438,11 +445,40 @@ function getConnections() {
             nearbyFriendAddressLi.innerHTML = snapshot.val().address;
             nearbyFriendAddress.appendChild(nearbyFriendAddressLi);
             nearbyFriend.appendChild(nearbyFriendAddress);
+
+            var acceptConnection = document.createElement('button');
+            acceptConnection.className = 'accept';
+            acceptConnection.innerHTML = "&#10004;";
+            nearbyFriendLi.appendChild(acceptConnection);
+            acceptConnection.onclick = function() {
+              friendConnect(nearbyFriend, nearbyFriendAddressLi.innerHTML);
+            };
           }
         });
       }
     });
   });
+}
+
+function friendConnect(nearbyFriend, friendAddress) {
+  var currentAddress = document.getElementById('JSONParent').innerHTML;
+  if (currentAddress !== "") {
+    var key = "AIzaSyCZgD0Sfe4nwX4ClU2nUkTBb6pgiezVyPc";
+    var directionsLink = "https://www.google.com/maps/embed/v1/directions?key=" + key + "&origin=" + currentAddress + "&destination=" + friendAddress;
+
+    nearbyFriend.remove();
+    document.getElementById('map').src = directionsLink;
+
+    document.getElementById('getDirectionsButton').style.display = 'block';
+    var getDirections = document.getElementById('getDirections');
+    getDirections.setAttribute('href', 'geo:0,0?q=' + friendAddress);
+
+    document.getElementById('getDirectionsButton').onclick = function() {
+      document.getElementById('getDirectionsButton').style.display = 'none';
+    }
+  } else {
+    alert('Please Broadcast your location before performing this action!');
+  }
 }
 
 window.onload = ButuGari;
@@ -470,7 +506,7 @@ function debounce(callback, timeout, _this) {
         var _that = this;
         if (timer)
             clearTimeout(timer);
-        timer = setTimeout(function() { 
+        timer = setTimeout(function() {
             callback.call(_this || _that, e);
         }, timeout);
     }
@@ -480,7 +516,7 @@ var userAction = debounce(function(e) {
     console.log('Inactivity for 5 minutes, automatically signed out.')
 }, 5*60*1000); // 5 minutes
 
-// Helpful DOM remove() function 
+// Helpful DOM remove() function
 Element.prototype.remove = function() {
     this.parentElement.removeChild(this);
 }
