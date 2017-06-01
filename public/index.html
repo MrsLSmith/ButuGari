@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="js/sw.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Butu Gari</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
@@ -14,13 +13,18 @@
 </head>
 
 <body>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+  </script>
 
     <header class="main-header clearfix">
         <img class="main-logo" src="img/ButuGariLogo.png">
         <h1 class="main-title"><a href="#">Butu Gari</a></h1>
     </header>
 
-    <div class="wrapper">      
+    <div class="wrapper">
         <div class="banner">
             <div id="userProfile">
                 <img id="user-pic">
@@ -83,5 +87,5 @@
     <footer class="main-footer">
         <h5>&copy;Butu Gari 2017</h5>
     </footer>
-    
+
 </html>
